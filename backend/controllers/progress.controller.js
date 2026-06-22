@@ -1,7 +1,7 @@
 //@ts-nocheck
 const Progress = require('../models/progress.model');
 const Curriculum = require('../models/curriculum.model');
-const ErrorHandler = require('../utils/ErrorHandler');
+const ErrorHandler = require('../utils/errorHandler');
 const catchAsyncErrors = require('../middlewares/catchAsyncErrors');
 
 // =====================================================

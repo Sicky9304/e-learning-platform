@@ -5,7 +5,7 @@ const crypto = require('crypto');
 
 const Email = require('../utils/email');
 
-const ErrorHandler = require('../utils/ErrorHandler');
+const ErrorHandler = require('../utils/errorHandler');
 
 const catchAsyncErrors = require('../middlewares/catchAsyncErrors');
 
@@ -223,4 +223,3 @@ exports.forgotPassword = catchAsyncErrors(async (req, res, next) => {
     message: 'Temporary password sent to your email',
   });
 });
-

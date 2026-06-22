@@ -18,7 +18,7 @@
 // authorizeRoles() is used to protect routes by allowing only specific user roles
 // to access them after login.
 
-const ErrorHandler = require('../utils/ErrorHandler');
+const ErrorHandler = require('../utils/errorHandler');
 
 exports.authorizeRoles = (...roles) => {
   return (req, res, next) => {

@@ -1,5 +1,5 @@
 //@ts-nocheck
-const ErrorHandler = require('../utils/ErrorHandler');
+const ErrorHandler = require('../utils/errorHandler');
 module.exports = (err, req, res, next) => {
   // Default Error
   let statusCode = err.statusCode || 500;

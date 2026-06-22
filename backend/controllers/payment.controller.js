@@ -8,7 +8,7 @@ const User = require('../models/user.model');
 const Course = require('../models/course.model');
 const Order = require('../models/order.model');
 
-const ErrorHandler = require('../utils/ErrorHandler');
+const ErrorHandler = require('../utils/errorHandler');
 const catchAsyncErrors = require('../middlewares/catchAsyncErrors');
 
 // Razorpay Instance

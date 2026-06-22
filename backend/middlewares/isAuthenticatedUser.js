@@ -1,27 +1,26 @@
 //@ts-nocheck
 const jwt = require('jsonwebtoken');
 const User = require('../models/user.model');
-const ErrorHandler = require('../utils/ErrorHandler');
+const ErrorHandler = require('../utils/errorHandler');
 const catchAsyncErrors = require('./catchAsyncErrors');
 
 exports.isAuthenticatedUser = catchAsyncErrors(async (req, res, next) => {
+  //  console.log("AUTH HEADER =>", req.headers.authorization);
+  let token;
 
-//  console.log("AUTH HEADER =>", req.headers.authorization);
- let token;
+  // Authorization Header
+  if (req.headers.authorization && req.headers.authorization.startsWith('Bearer')) {
+    token = req.headers.authorization.split(' ')[1];
+  }
 
- // Authorization Header
- if (req.headers.authorization && req.headers.authorization.startsWith('Bearer')) {
-   token = req.headers.authorization.split(' ')[1];
- }
+  // Cookie
+  else if (req.cookies?.jwt) {
+    token = req.cookies.jwt;
+  }
 
- // Cookie
- else if (req.cookies?.jwt) {
-   token = req.cookies.jwt;
- }
-
- if (!token) {
-   return next(new ErrorHandler('Please login to access this resource', 401));
- }
+  if (!token) {
+    return next(new ErrorHandler('Please login to access this resource', 401));
+  }
 
   const decoded = jwt.verify(token, process.env.JWT_SECRET);
   // console.log('DECODED =>', decoded);
