@@ -1,11 +1,13 @@
 import axios from 'axios';
 
-const API_URL = 'http://localhost:5000/api/payment';
+const API = axios.create({
+  baseURL: import.meta.env.VITE_API_URL,
+});
 
 export const createRazorpayOrder = async (data) => {
   const token = localStorage.getItem('token');
   const response = await axios.post(
-    `${API_URL}/create-order`,
+    `${API}/api/payment/create-order`,
     data,
     {
       headers: {
@@ -20,7 +22,7 @@ export const createRazorpayOrder = async (data) => {
 export const verifyPayment = async (data) => {
   const token = localStorage.getItem('token');
   const response = await axios.post(
-    `${API_URL}/verify-payment`,
+    `${API}/api/payment/verify-payment`,
     data,
     {
       headers: {

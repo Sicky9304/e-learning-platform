@@ -1,11 +1,13 @@
 import axios from 'axios';
 
-const API_URL = 'http://localhost:5000/api/orders';
+const API = axios.create({
+  baseURL: import.meta.env.VITE_API_URL,
+});
 
 export const createCODOrder = async (data) => {
   const token = localStorage.getItem('token');
   const response = await axios.post(
-    `${API_URL}/create`,
+    `${API}/api/orders/create`,
     data,
     {
       headers: {
@@ -20,7 +22,7 @@ export const createCODOrder = async (data) => {
 export const getMyOrders = async () => {
   const token = localStorage.getItem('token');
   const response = await axios.get(
-    `${API_URL}/my-orders`,
+    `${API}/api/orders/my-orders`,
     {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -36,7 +38,7 @@ export const getAllOrders = async () => {
   const token = localStorage.getItem('token');
 
   const response = await axios.get(
-    `${API_URL}/admin/all`,
+    `${API}/api/orders/admin/all`,
     {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -51,7 +53,7 @@ export const updateOrderStatus = async (id, data) => {
   const token = localStorage.getItem('token');
 
   const response = await axios.put(
-    `${API_URL}/admin/${id}`,
+    `${API}/api/orders/admin/${id}`,
     data,
     {
       headers: {
