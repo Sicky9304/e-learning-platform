@@ -97,9 +97,7 @@ export const updatePassword = async (passwordData) => {
 // =========================
 
 export const markLessonComplete = async (courseId,lessonId) => {
-  const response = await API.post(
-    `api/progress/${courseId}/lesson/${lessonId}`
-  );
+  const response = await API.post(`api/progress/${courseId}/lesson/${lessonId}`);
 
   return response.data;
 };

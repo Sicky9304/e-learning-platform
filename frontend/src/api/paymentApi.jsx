@@ -6,8 +6,7 @@ const API = axios.create({
 
 export const createRazorpayOrder = async (data) => {
   const token = localStorage.getItem('token');
-  const response = await axios.post(
-    `${API}/api/payment/create-order`,
+  const response = await API.post('/api/payment/create-order',
     data,
     {
       headers: {
@@ -21,8 +20,7 @@ export const createRazorpayOrder = async (data) => {
 
 export const verifyPayment = async (data) => {
   const token = localStorage.getItem('token');
-  const response = await axios.post(
-    `${API}/api/payment/verify-payment`,
+  const response = await API.post('/api/payment/verify-payment',
     data,
     {
       headers: {

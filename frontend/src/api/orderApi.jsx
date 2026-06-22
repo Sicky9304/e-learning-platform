@@ -6,9 +6,7 @@ const API = axios.create({
 
 export const createCODOrder = async (data) => {
   const token = localStorage.getItem('token');
-  const response = await axios.post(
-    `${API}/api/orders/create`,
-    data,
+  const response = await API.post('/api/orders/create',data,
     {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -21,8 +19,7 @@ export const createCODOrder = async (data) => {
 
 export const getMyOrders = async () => {
   const token = localStorage.getItem('token');
-  const response = await axios.get(
-    `${API}/api/orders/my-orders`,
+  const response = await API.get('/api/orders/my-orders',
     {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -37,8 +34,7 @@ export const getMyOrders = async () => {
 export const getAllOrders = async () => {
   const token = localStorage.getItem('token');
 
-  const response = await axios.get(
-    `${API}/api/orders/admin/all`,
+  const response = await API.get('/api/orders/admin/all',
     {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -52,8 +48,7 @@ export const getAllOrders = async () => {
 export const updateOrderStatus = async (id, data) => {
   const token = localStorage.getItem('token');
 
-  const response = await axios.put(
-    `${API}/api/orders/admin/${id}`,
+  const response = await API.put('/api/orders/admin/${id}',
     data,
     {
       headers: {
