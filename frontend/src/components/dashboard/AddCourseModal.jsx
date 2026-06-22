@@ -107,7 +107,7 @@ const AddCourseModal = ({ isOpen, onClose, onCourseAdded }) => {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 bg-black/70 flex justify-center items-center z-50">
+    <div className="fixed inset-0 bg-black/70 pt-28 py-20 flex justify-center items-center z-50">
       <div className="bg-[#08152f] w-full max-w-2xl rounded-xl p-6 max-h-[90vh] overflow-y-auto">
         <h2 className="text-2xl font-bold text-white mb-6 ">Add Course</h2>
 

@@ -48,8 +48,8 @@ const AddMentorModal = ({ isOpen, onClose, onMentorAdded }) => {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 bg-black/70 flex justify-center items-center z-50">
-      <div className="bg-[#08152f] w-full max-w-2xl rounded-xl p-6">
+    <div className="fixed inset-0 z-50 flex mt-3 pt-40 py-20 items-center justify-center bg-black/70">
+      <div className="bg-[#08152f] rounded-2xl w-full max-w-4xl max-h-[90vh] overflow-y-auto p-6">
         <h2 className="text-2xl font-bold text-white mb-6">Add Mentor</h2>
 
         <form onSubmit={handleSubmit} className="space-y-4">
