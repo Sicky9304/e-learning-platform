@@ -1,20 +1,30 @@
 {
   "name": "backend",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "MERN E-Learning Platform Backend API",
+  "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node server.js",
+    "dev": "node --watch server.js",
+    "test": "echo \"No tests specified\""
   },
-  "keywords": [],
-  "author": "",
+  "keywords": [
+    "mern",
+    "nodejs",
+    "express",
+    "mongodb",
+    "e-learning",
+    "razorpay",
+    "authentication"
+  ],
+  "author": "Sicky Kumar",
   "license": "ISC",
   "type": "commonjs",
   "dependencies": {
     "bcryptjs": "^3.0.3",
     "cloudinary": "^2.10.0",
     "cookie-parser": "^1.4.7",
-    "cors": "^2.8.6",
+    "cors": "^2.8.5",
     "crypto": "^1.0.1",
     "dotenv": "^17.4.2",
     "express": "^5.2.1",
