@@ -1,0 +1,12 @@
+backend/node_modules
+frontend/node_modules
+
+backend/.env
+frontend/.env
+
+backend/uploads
+
+backend/dist
+frontend/dist
+
+.vercel
