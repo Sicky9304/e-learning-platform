@@ -48,7 +48,7 @@ export const getAllOrders = async () => {
 export const updateOrderStatus = async (id, data) => {
   const token = localStorage.getItem('token');
 
-  const response = await API.put('/api/orders/admin/${id}',
+  const response = await API.put(`/api/orders/admin/${id}`,
     data,
     {
       headers: {
