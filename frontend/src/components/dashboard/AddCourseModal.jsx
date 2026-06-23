@@ -105,189 +105,291 @@ const AddCourseModal = ({ isOpen, onClose, onCourseAdded }) => {
   };
 
   if (!isOpen) return null;
+  const inputClass ="w-full rounded-2xl border border-white/10 bg-slate-800/80 px-4 py-3 text-white outline-none focus:border-indigo-500 transition";
 
   return (
-    <div className="fixed inset-0 bg-black/70 pt-28 py-20 flex justify-center items-center z-50">
-      <div className="bg-[#08152f] w-full max-w-2xl rounded-xl p-6 max-h-[90vh] overflow-y-auto">
-        <h2 className="text-2xl font-bold text-white mb-6 ">Add Course</h2>
+    <div className="fixed inset-0 z-[9999] bg-black/80 backdrop-blur-sm pt-24 sm:pt-28 px-2 sm:px-4 pb-4 flex items-start justify-center">
 
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <input
-            type="text"
-            name="title"
-            placeholder="Course Title"
-            value={formData.title}
-            onChange={handleChange}
-            className="w-full p-3 rounded bg-slate-800 text-white"
-          />
+      <div className="w-full max-w-5xl max-h-[calc(100vh-120px)] overflow-y-auto rounded-3xl border border-white/10 bg-[#08152f]/95 backdrop-blur-xl shadow-2xl shadow-indigo-500/10">
 
-          <textarea
-            name="description"
-            placeholder="Description"
-            value={formData.description}
-            onChange={handleChange}
-            className="w-full p-3 rounded bg-slate-800 text-white"
-          />
+        {/* Header */}
+        <div className="sticky top-0 z-20 flex items-center justify-between border-b border-white/10 bg-[#08152f]/95 backdrop-blur-xl px-4 sm:px-6 py-4">
 
-          <input
-            type="text"
-            name="category"
-            placeholder="Category"
-            value={formData.category}
-            onChange={handleChange}
-            className="w-full p-3 rounded bg-slate-800 text-white"
-          />
+          <div>
+            <h2 className="text-xl sm:text-2xl font-bold text-white">
+              Add New Course
+            </h2>
 
-          <input
-            type="text"
-            name="image"
-            placeholder="Image URL"
-            value={formData.image}
-            onChange={handleChange}
-            className="w-full p-3 rounded bg-slate-800 text-white"
-          />
-
-          <div className="grid md:grid-cols-2 gap-4">
-            <input
-              type="number"
-              name="price"
-              placeholder="Price"
-              value={formData.price}
-              onChange={handleChange}
-              className="p-3 rounded bg-slate-800 text-white"
-            />
-
-            <input
-              type="number"
-              name="oldPrice"
-              placeholder="Old Price"
-              value={formData.oldPrice}
-              onChange={handleChange}
-              className="p-3 rounded bg-slate-800 text-white"
-            />
+            <p className="text-sm text-gray-400">
+              Create and publish a new course
+            </p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-4">
-            <input
-              type="number"
-              name="rating"
-              placeholder="Rating"
-              value={formData.rating}
-              onChange={handleChange}
-              className="p-3 rounded bg-slate-800 text-white"
-            />
-
-            <input
-              type="number"
-              name="students"
-              placeholder="Students"
-              value={formData.students}
-              onChange={handleChange}
-              className="p-3 rounded bg-slate-800 text-white"
-            />
-
-            <input
-              type="number"
-              name="lessons"
-              placeholder="Lessons"
-              value={formData.lessons}
-              onChange={handleChange}
-              className="p-3 rounded bg-slate-800 text-white"
-            />
-          </div>
-
-          <div className="grid md:grid-cols-2 gap-4">
-            <input
-              type="text"
-              name="duration"
-              placeholder="Duration"
-              value={formData.duration}
-              onChange={handleChange}
-              className="p-3 rounded bg-slate-800 text-white"
-            />
-
-            <textarea
-              name="learningOutcomes"
-              placeholder="Learning Outcomes (comma separated)"
-              value={formData.learningOutcomes}
-              onChange={handleChange}
-              className="w-full p-3 rounded bg-slate-800 text-white"
-            />
-
-            <textarea
-              name="requirements"
-              placeholder="Requirements (comma separated)"
-              value={formData.requirements}
-              onChange={handleChange}
-              className="w-full p-3 rounded bg-slate-800 text-white"
-            />
-
-            <select
-              name="level"
-              value={formData.level}
-              onChange={handleChange}
-              className="p-3 rounded bg-slate-800 text-white"
-            >
-              <option>Beginner</option>
-              <option>Intermediate</option>
-              <option>Advanced</option>
-            </select>
-          </div>
-
-          <select
-            name="language"
-            value={formData.language}
-            onChange={handleChange}
-            className="w-full p-3 rounded bg-slate-800 text-white"
+          <button
+            onClick={onClose}
+            className="h-10 w-10 rounded-xl bg-red-500/20 text-red-400 hover:bg-red-500/30 transition"
           >
-            <option value="English">English</option>
-            <option value="Hindi">Hindi</option>
-            <option value="Bengali">Bengali</option>
-          </select>
+            ✕
+          </button>
 
-          <select
-            name="mentor"
-            value={formData.mentor}
-            onChange={handleChange}
-            className="w-full p-3 rounded bg-slate-800 text-white"
-          >
-            <option value="">Select Mentor</option>
+        </div>
 
-            {mentors.map((mentor) => (
-              <option key={mentor._id} value={mentor._id}>
-                {mentor.name}
-              </option>
-            ))}
-          </select>
+        {/* Form */}
+        <form onSubmit={handleSubmit} className="p-4 sm:p-6 space-y-8">
 
-          <label className="flex items-center gap-3 text-white">
-            <input
-              type="checkbox"
-              name="bestSeller"
-              checked={formData.bestSeller}
-              onChange={handleChange}
-            />
-            Best Seller
-          </label>
+          {/* Course Information */}
+          <div>
 
-          <div className="flex gap-4 pt-4">
-            <button
-              type="submit"
-              className="bg-indigo-600 hover:bg-indigo-500 px-5 py-2 rounded text-white"
-            >
-              Add Course
-            </button>
+            <h3 className="text-lg font-semibold text-white mb-4">
+              Course Information
+            </h3>
 
-            <button
-              type="button"
-              onClick={onClose}
-              className="bg-red-600 hover:bg-red-500 px-5 py-2 rounded text-white"
-            >
-              Cancel
-            </button>
+            <div className="grid gap-4">
+
+              <input
+                type="text"
+                name="title"
+                placeholder="Course Title"
+                value={formData.title}
+                onChange={handleChange}
+                className={inputClass}
+              />
+
+              <textarea
+                rows="4"
+                name="description"
+                placeholder="Course Description"
+                value={formData.description}
+                onChange={handleChange}
+                className={inputClass}
+              />
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+
+                <input
+                  type="text"
+                  name="category"
+                  placeholder="Category"
+                  value={formData.category}
+                  onChange={handleChange}
+                  className={inputClass}
+                />
+
+                <input
+                  type="text"
+                  name="image"
+                  placeholder="Image URL"
+                  value={formData.image}
+                  onChange={handleChange}
+                  className={inputClass}
+                />
+
+              </div>
+
+            </div>
+
           </div>
+
+          {/* Pricing */}
+          <div>
+
+            <h3 className="text-lg font-semibold text-white mb-4">
+              Pricing
+            </h3>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+
+              <input
+                type="number"
+                name="price"
+                placeholder="Price"
+                value={formData.price}
+                onChange={handleChange}
+                className={inputClass}
+              />
+
+              <input
+                type="number"
+                name="oldPrice"
+                placeholder="Old Price"
+                value={formData.oldPrice}
+                onChange={handleChange}
+                className={inputClass}
+              />
+
+            </div>
+
+          </div>
+
+          {/* Stats */}
+          <div>
+
+            <h3 className="text-lg font-semibold text-white mb-4">
+              Course Statistics
+            </h3>
+
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+
+              <input
+                type="number"
+                name="rating"
+                placeholder="Rating"
+                value={formData.rating}
+                onChange={handleChange}
+                className={inputClass}
+              />
+
+              <input
+                type="number"
+                name="students"
+                placeholder="Students"
+                value={formData.students}
+                onChange={handleChange}
+                className={inputClass}
+              />
+
+              <input
+                type="number"
+                name="lessons"
+                placeholder="Lessons"
+                value={formData.lessons}
+                onChange={handleChange}
+                className={inputClass}
+              />
+
+            </div>
+
+          </div>
+
+          {/* Learning Details */}
+          <div>
+
+            <h3 className="text-lg font-semibold text-white mb-4">
+              Learning Details
+            </h3>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+
+              <input
+                type="text"
+                name="duration"
+                placeholder="Duration"
+                value={formData.duration}
+                onChange={handleChange}
+                className={inputClass}
+              />
+
+              <select
+                name="level"
+                value={formData.level}
+                onChange={handleChange}
+                className={inputClass}
+              >
+                <option>Beginner</option>
+                <option>Intermediate</option>
+                <option>Advanced</option>
+              </select>
+
+              <textarea
+                rows="4"
+                name="learningOutcomes"
+                placeholder="Learning Outcomes (comma separated)"
+                value={formData.learningOutcomes}
+                onChange={handleChange}
+                className={inputClass}
+              />
+
+              <textarea
+                rows="4"
+                name="requirements"
+                placeholder="Requirements (comma separated)"
+                value={formData.requirements}
+                onChange={handleChange}
+                className={inputClass}
+              />
+
+            </div>
+
+          </div>
+
+          {/* Mentor & Settings */}
+          <div>
+
+            <h3 className="text-lg font-semibold text-white mb-4">
+              Mentor & Settings
+            </h3>
+
+            <div className="grid gap-4">
+
+              <select
+                name="language"
+                value={formData.language}
+                onChange={handleChange}
+                className={inputClass}
+              >
+                <option value="English">English</option>
+                <option value="Hindi">Hindi</option>
+                <option value="Bengali">Bengali</option>
+              </select>
+
+              <select
+                name="mentor"
+                value={formData.mentor}
+                onChange={handleChange}
+                className={inputClass}
+              >
+                <option value="">Select Mentor</option>
+
+                {mentors.map((mentor) => (
+                  <option key={mentor._id} value={mentor._id}>
+                    {mentor.name}
+                  </option>
+                ))}
+              </select>
+
+              <label className="flex items-center gap-3 rounded-2xl border border-white/10 bg-slate-800/80 px-4 py-3 text-white">
+                <input
+                  type="checkbox"
+                  name="bestSeller"
+                  checked={formData.bestSeller}
+                  onChange={handleChange}
+                />
+
+                Best Seller Course
+              </label>
+
+            </div>
+
+          </div>
+
+          {/* Action Buttons */}
+          <div className="sticky bottom-0 bg-[#08152f]/95 backdrop-blur-xl pt-4">
+
+            <div className="flex flex-col sm:flex-row gap-3">
+
+              <button
+                type="submit"
+                className="flex-1 py-3 rounded-2xl bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-semibold hover:scale-[1.02] transition"
+              >
+                Add Course
+              </button>
+
+              <button
+                type="button"
+                onClick={onClose}
+                className="flex-1 py-3 rounded-2xl bg-red-500/20 text-red-400 border border-red-500/20 hover:bg-red-500/30 transition"
+              >
+                Cancel
+              </button>
+
+            </div>
+
+          </div>
+
         </form>
+
       </div>
+
     </div>
   );
 };

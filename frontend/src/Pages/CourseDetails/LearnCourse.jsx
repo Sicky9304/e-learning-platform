@@ -41,7 +41,6 @@ const LearnCourse = () => {
     const fetchCourse = async () => {
       try {
         const response = await getCourseById(id);
-
         setCourse(response.data);
       } catch (error) {
         console.log(error);
@@ -159,25 +158,117 @@ const LearnCourse = () => {
     );
   }
   return (
-    <section className="relative z-[10] min-h-screen bg-[#020817] py-8">
-      <div className="max-w-7xl mx-auto px-4">
-        <BackButton/>
-        <div className="grid lg:grid-cols-12 gap-6">
+    <section className="relative z-[10] min-h-screen bg-[#020817] pt-28 md:pt-32 pb-12">
 
-          {/* LEFT SIDEBAR */}
-          <div className="lg:col-span-4">
-            <CourseSidebar
-              curriculum={curriculum}
-              currentLesson={currentLesson}
-              setCurrentLesson={setCurrentLesson}
-              completedLessons={completedLessons}
-            />
+      <div className="max-w-7xl mx-auto px-4 sm:px-6">
+
+        {/* Back Button */}
+        <div className="mb-6">
+          <BackButton />
+        </div>
+
+        {/* Hero Section */}
+        <div className="relative overflow-hidden rounded-3xl border border-indigo-500/20 bg-gradient-to-br from-[#08152f] via-[#0b1736] to-[#111827] p-6 md:p-10 mb-8">
+
+          <div className="absolute top-0 right-0 w-72 h-72 bg-indigo-500/10 blur-3xl rounded-full" />
+
+          <div className="relative z-10">
+
+            <div className="flex flex-wrap gap-3 mb-5">
+
+              <span className="px-4 py-2 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-300 text-sm">
+                📚 {course?.category}
+              </span>
+
+              <span className="px-4 py-2 rounded-full bg-yellow-500/10 border border-yellow-500/20 text-yellow-300 text-sm">
+                ⭐ {course?.rating}
+              </span>
+
+              <span className="px-4 py-2 rounded-full bg-green-500/10 border border-green-500/20 text-green-300 text-sm">
+                {progress?.percentage || 0}% Completed
+              </span>
+
+            </div>
+
+            <h1 className="text-3xl md:text-5xl font-black text-white leading-tight">
+              {course?.title}
+            </h1>
+
+            <p className="text-gray-400 mt-5 max-w-3xl text-base md:text-lg">
+              {course?.description}
+            </p>
+
+          </div>
+        </div>
+
+        {/* Stats */}
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+
+          <div className="bg-[#08152f] border border-slate-800 rounded-2xl p-5">
+            <p className="text-gray-400 text-sm">
+              Total Lessons
+            </p>
+
+            <h3 className="text-3xl font-bold text-white mt-2">
+              {allLessons.length}
+            </h3>
           </div>
 
-          {/* RIGHT CONTENT */}
-          <div className="lg:col-span-8 space-y-6">
+          <div className="bg-[#08152f] border border-slate-800 rounded-2xl p-5">
+            <p className="text-gray-400 text-sm">
+              Completed
+            </p>
 
-            <VideoPlayer lesson={currentLesson} />
+            <h3 className="text-3xl font-bold text-green-400 mt-2">
+              {completedLessons.length}
+            </h3>
+          </div>
+
+          <div className="bg-[#08152f] border border-slate-800 rounded-2xl p-5">
+            <p className="text-gray-400 text-sm">
+              Progress
+            </p>
+
+            <h3 className="text-3xl font-bold text-indigo-400 mt-2">
+              {progress?.percentage || 0}%
+            </h3>
+          </div>
+
+          <div className="bg-[#08152f] border border-slate-800 rounded-2xl p-5">
+            <p className="text-gray-400 text-sm">
+              Duration
+            </p>
+
+            <h3 className="text-2xl font-bold text-cyan-400 mt-2">
+              {course?.duration}
+            </h3>
+          </div>
+
+        </div>
+
+        {/* Main Layout */}
+        <div className="grid xl:grid-cols-12 gap-6">
+
+          {/* Sidebar */}
+          <div className="xl:col-span-4">
+
+            <div className="sticky top-24">
+              <CourseSidebar
+                curriculum={curriculum}
+                currentLesson={currentLesson}
+                setCurrentLesson={setCurrentLesson}
+                completedLessons={completedLessons}
+              />
+            </div>
+
+          </div>
+
+          {/* Main Content */}
+          <div className="xl:col-span-8 space-y-6">
+
+            <div className="overflow-hidden rounded-3xl border border-slate-800">
+              <VideoPlayer lesson={currentLesson} />
+            </div>
 
             <CourseProgress
               completedLessons={completedLessons}
@@ -198,12 +289,11 @@ const LearnCourse = () => {
               onNext={handleNext}
               onComplete={handleComplete}
               disablePrev={currentIndex === 0}
-              disableNext={
-                currentIndex === allLessons.length - 1
-              }
+              disableNext={currentIndex === allLessons.length - 1}
               isCompleted={completedLessons.some(
                 (id) =>
-                  id.toString() === currentLesson?._id?.toString()
+                  id.toString() ===
+                  currentLesson?._id?.toString()
               )}
             />
 
@@ -212,6 +302,7 @@ const LearnCourse = () => {
         </div>
 
       </div>
+
     </section>
   );
 };

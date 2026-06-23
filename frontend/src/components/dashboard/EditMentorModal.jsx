@@ -69,88 +69,180 @@ const EditMentorModal = ({ isOpen, onClose, selectedMentor, onMentorUpdated }) =
   // Prevent modal rendering when the modal is not open
   if (!isOpen) return null;
 
+  const inputClass ="w-full rounded-2xl border border-white/10 bg-slate-800/80 px-4 py-3 text-white outline-none focus:border-indigo-500 transition";
   return (
-    <div className="fixed inset-0 bg-black/60 z-50 overflow-y-auto">
-      <div className="min-h-screen flex items-start md:items-center justify-center p-4">
-        <div className="bg-[#08152f] w-full max-w-2xl max-h-[90vh] overflow-y-auto rounded-xl p-4 sm:p-6 mx-2">
-          <h2 className="text-2xl font-bold text-white mb-6">Edit Mentor</h2>
+    <div className="fixed inset-0 z-[9999] bg-black/80 backdrop-blur-sm pt-24 px-2 sm:px-4 pb-4 overflow-y-auto">
 
-          <form onSubmit={handleSubmit} className="space-y-4">
-            <input
-              type="text"
-              name="name"
-              value={formData.name}
-              onChange={handleChange}
-              className="w-full p-3 rounded bg-slate-800 text-white text-base"
-            />
+      <div className="w-full max-w-4xl mx-auto rounded-3xl border border-white/10 bg-[#08152f]/95 backdrop-blur-xl shadow-2xl shadow-indigo-500/10">
 
-            <input
-              type="text"
-              name="role"
-              value={formData.role}
-              onChange={handleChange}
-              className="w-full p-3 rounded bg-slate-800 text-white text-base"
-            />
+        {/* Header */}
+        <div className="px-4 sm:px-6 py-4 border-b border-white/10">
 
-            <input
-              type="text"
-              name="image"
-              value={formData.image}
-              onChange={handleChange}
-              className="w-full p-3 rounded bg-slate-800 text-white text-base"
-            />
+          <div className="flex items-center justify-between">
+
+            <div>
+              <h2 className="text-xl sm:text-2xl font-bold text-white">
+                Edit Mentor
+              </h2>
+
+              <p className="text-sm text-gray-400">
+                Update mentor profile information
+              </p>
+            </div>
+
+            <button
+              onClick={onClose}
+              className="h-10 w-10 rounded-xl bg-red-500/20 text-red-400 hover:bg-red-500/30 transition"
+            >
+              ✕
+            </button>
+
+          </div>
+
+        </div>
+
+        {/* Form */}
+        <form onSubmit={handleSubmit} className="p-4 sm:p-6 space-y-8">
+
+          {/* Basic Information */}
+          <div>
+
+            <h3 className="text-lg font-semibold text-white mb-4">
+              Basic Information
+            </h3>
+
+            <div className="grid gap-4">
+
+              <input
+                type="text"
+                name="name"
+                value={formData.name}
+                onChange={handleChange}
+                placeholder="Mentor Name"
+                className={inputClass}
+              />
+
+              <input
+                type="text"
+                name="role"
+                value={formData.role}
+                onChange={handleChange}
+                placeholder="Role"
+                className={inputClass}
+              />
+
+              <input
+                type="text"
+                name="image"
+                value={formData.image}
+                onChange={handleChange}
+                placeholder="Profile Image URL"
+                className={inputClass}
+              />
+
+            </div>
+
+          </div>
+
+          {/* Biography */}
+          <div>
+
+            <h3 className="text-lg font-semibold text-white mb-4">
+              About Mentor
+            </h3>
 
             <textarea
+              rows="6"
               name="bio"
-              rows="4"
               value={formData.bio}
               onChange={handleChange}
-              className="w-full p-3 rounded bg-slate-800 text-white text-base"
+              placeholder="Write mentor biography..."
+              className={inputClass}
             />
 
-            <input
-              type="number"
-              name="experience"
-              value={formData.experience}
-              onChange={handleChange}
-              className="w-full p-3 rounded bg-slate-800 text-white text-base"
-            />
+          </div>
 
-            <input
-              type="text"
-              name="linkedin"
-              value={formData.linkedin}
-              onChange={handleChange}
-              className="w-full p-3 rounded bg-slate-800 text-white text-base"
-            />
+          {/* Professional Details */}
+          <div>
 
-            <input
-              type="text"
-              name="github"
-              value={formData.github}
-              onChange={handleChange}
-              className="w-full p-3 rounded bg-slate-800 text-white text-base"
-            />
+            <h3 className="text-lg font-semibold text-white mb-4">
+              Professional Details
+            </h3>
 
-            <div className="flex flex-col sm:flex-row gap-4 pt-4">
-              <button
-                type="submit"
-                className="bg-indigo-600 hover:bg-indigo-500 px-5 py-2 rounded text-white"
-              >
-                Update Mentor
-              </button>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
 
-              <button
-                type="button"
-                onClick={onClose}
-                className="bg-red-600 hover:bg-red-500 px-5 py-2 rounded text-white"
-              >
-                Cancel
-              </button>
+              <input
+                type="number"
+                name="experience"
+                value={formData.experience}
+                onChange={handleChange}
+                placeholder="Years of Experience"
+                className={inputClass}
+              />
+
+              <div className="flex items-center rounded-2xl border border-green-500/20 bg-green-500/10 px-4 py-3 text-green-300">
+                ⭐ Mentor Profile Active
+              </div>
+
             </div>
-          </form>
-        </div>
+
+          </div>
+
+          {/* Social Profiles */}
+          <div>
+
+            <h3 className="text-lg font-semibold text-white mb-4">
+              Social Profiles
+            </h3>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+
+              <input
+                type="text"
+                name="linkedin"
+                value={formData.linkedin}
+                onChange={handleChange}
+                placeholder="LinkedIn URL"
+                className={inputClass}
+              />
+
+              <input
+                type="text"
+                name="github"
+                value={formData.github}
+                onChange={handleChange}
+                placeholder="GitHub URL"
+                className={inputClass}
+              />
+
+            </div>
+
+          </div>
+
+          {/* Action Buttons */}
+          <div className="flex flex-col sm:flex-row gap-3 pt-4">
+
+            <button
+              type="submit"
+              className="flex-1 py-3 rounded-2xl bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-semibold hover:scale-[1.02] transition"
+            >
+              Update Mentor
+            </button>
+
+            <button
+              type="button"
+              onClick={onClose}
+              className="flex-1 py-3 rounded-2xl bg-red-500/20 text-red-400 border border-red-500/20 hover:bg-red-500/30 transition"
+            >
+              Cancel
+            </button>
+
+          </div>
+
+        </form>
+
       </div>
+
     </div>
   );
 };

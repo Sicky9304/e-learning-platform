@@ -100,52 +100,110 @@ const EditCourseModal = ({ isOpen, onClose, selectedCourse, onCourseUpdated }) =
 
   // Prevent modal rendering when the modal is not open
   if (!isOpen) return null;
-
+  const inputClass ="w-full rounded-2xl border border-white/10 bg-slate-800/80 px-4 py-3 text-white outline-none focus:border-indigo-500 transition";
   return (
-    <div className="fixed inset-0 bg-black/70 z-50 overflow-y-auto">
-      <div className="min-h-screen flex items-start md:items-center justify-center p-4">
-        <div className="bg-[#08152f] w-full max-w-2xl rounded-xl p-4 sm:p-6 max-h-[90vh] overflow-y-auto mx-2">
-          <h2 className="text-2xl font-bold text-white mb-6">Edit Course</h2>
+    <div className="fixed inset-0 z-[9999] bg-black/80 backdrop-blur-sm pt-24 px-2 sm:px-4 pb-4 overflow-y-auto">
 
-          <form onSubmit={handleSubmit} className="space-y-4">
-            <input
-              type="text"
-              name="title"
-              value={formData.title}
-              onChange={handleChange}
-              className="w-full p-3 rounded bg-slate-800 text-white text-base"
-            />
+      <div className="w-full max-w-5xl mx-auto rounded-3xl border border-white/10 bg-[#08152f]/95 backdrop-blur-xl shadow-2xl shadow-indigo-500/10">
 
-            <textarea
-              name="description"
-              value={formData.description}
-              onChange={handleChange}
-              className="w-full p-3 rounded bg-slate-800 text-white text-base"
-            />
+        {/* Header */}
+        <div className="px-4 sm:px-6 py-4 border-b border-white/10">
 
-            <input
-              type="text"
-              name="category"
-              value={formData.category}
-              onChange={handleChange}
-              className="w-full p-3 rounded bg-slate-800 text-white text-base"
-            />
+          <div className="flex items-center justify-between">
 
-            <input
-              type="text"
-              name="image"
-              value={formData.image}
-              onChange={handleChange}
-              className="w-full p-3 rounded bg-slate-800 text-white text-base"
-            />
+            <div>
+              <h2 className="text-xl sm:text-2xl font-bold text-white">
+                Edit Course
+              </h2>
 
-            <div className="grid md:grid-cols-2 gap-4">
+              <p className="text-sm text-gray-400">
+                Update course information and settings
+              </p>
+            </div>
+
+            <button
+              onClick={onClose}
+              className="h-10 w-10 rounded-xl bg-red-500/20 text-red-400 hover:bg-red-500/30 transition"
+            >
+              ✕
+            </button>
+
+          </div>
+
+        </div>
+
+        {/* Form */}
+        <form onSubmit={handleSubmit} className="p-4 sm:p-6 space-y-8">
+
+          {/* Course Information */}
+          <div>
+
+            <h3 className="text-lg font-semibold text-white mb-4">
+              Course Information
+            </h3>
+
+            <div className="grid gap-4">
+
+              <input
+                type="text"
+                name="title"
+                value={formData.title}
+                onChange={handleChange}
+                placeholder="Course Title"
+                className={inputClass}
+              />
+
+              <textarea
+                rows="4"
+                name="description"
+                value={formData.description}
+                onChange={handleChange}
+                placeholder="Course Description"
+                className={inputClass}
+              />
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+
+                <input
+                  type="text"
+                  name="category"
+                  value={formData.category}
+                  onChange={handleChange}
+                  placeholder="Category"
+                  className={inputClass}
+                />
+
+                <input
+                  type="text"
+                  name="image"
+                  value={formData.image}
+                  onChange={handleChange}
+                  placeholder="Image URL"
+                  className={inputClass}
+                />
+
+              </div>
+
+            </div>
+
+          </div>
+
+          {/* Pricing */}
+          <div>
+
+            <h3 className="text-lg font-semibold text-white mb-4">
+              Pricing
+            </h3>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+
               <input
                 type="number"
                 name="price"
                 value={formData.price}
                 onChange={handleChange}
-                className="w-full p-3 rounded bg-slate-800 text-white text-base"
+                placeholder="Price"
+                className={inputClass}
               />
 
               <input
@@ -153,17 +211,30 @@ const EditCourseModal = ({ isOpen, onClose, selectedCourse, onCourseUpdated }) =
                 name="oldPrice"
                 value={formData.oldPrice}
                 onChange={handleChange}
-                className="w-full p-3 rounded bg-slate-800 text-white text-base"
+                placeholder="Old Price"
+                className={inputClass}
               />
+
             </div>
 
-            <div className="grid md:grid-cols-3 gap-4">
+          </div>
+
+          {/* Statistics */}
+          <div>
+
+            <h3 className="text-lg font-semibold text-white mb-4">
+              Course Statistics
+            </h3>
+
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+
               <input
                 type="number"
                 name="rating"
                 value={formData.rating}
                 onChange={handleChange}
-                className="w-full p-3 rounded bg-slate-800 text-white text-base"
+                placeholder="Rating"
+                className={inputClass}
               />
 
               <input
@@ -171,7 +242,8 @@ const EditCourseModal = ({ isOpen, onClose, selectedCourse, onCourseUpdated }) =
                 name="students"
                 value={formData.students}
                 onChange={handleChange}
-                className="w-full p-3 rounded bg-slate-800 text-white text-base"
+                placeholder="Students"
+                className={inputClass}
               />
 
               <input
@@ -179,77 +251,114 @@ const EditCourseModal = ({ isOpen, onClose, selectedCourse, onCourseUpdated }) =
                 name="lessons"
                 value={formData.lessons}
                 onChange={handleChange}
-                className="w-full p-3 rounded bg-slate-800 text-white text-base"
+                placeholder="Lessons"
+                className={inputClass}
               />
+
             </div>
 
-            <div className="grid md:grid-cols-2 gap-4">
+          </div>
+
+          {/* Course Details */}
+          <div>
+
+            <h3 className="text-lg font-semibold text-white mb-4">
+              Course Details
+            </h3>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+
               <input
                 type="text"
                 name="duration"
                 value={formData.duration}
                 onChange={handleChange}
-                className="w-full p-3 rounded bg-slate-800 text-white text-base"
+                placeholder="Duration"
+                className={inputClass}
               />
 
               <select
                 name="level"
                 value={formData.level}
                 onChange={handleChange}
-                className="w-full p-3 rounded bg-slate-800 text-white text-base"
+                className={inputClass}
               >
                 <option>Beginner</option>
                 <option>Intermediate</option>
                 <option>Advanced</option>
               </select>
+
             </div>
 
-            <select
-              name="mentor"
-              value={formData.mentor}
-              onChange={handleChange}
-              className="w-full p-3 rounded bg-slate-800 text-white text-base"
-            >
-              <option value="">Select Mentor</option>
+          </div>
 
-              {mentors.map((mentor) => (
-                <option key={mentor._id} value={mentor._id}>
-                  {mentor.name}
-                </option>
-              ))}
-            </select>
+          {/* Mentor & Settings */}
+          <div>
 
-            <label className="flex items-center gap-3 text-white">
-              <input
-                type="checkbox"
-                name="bestSeller"
-                checked={formData.bestSeller}
+            <h3 className="text-lg font-semibold text-white mb-4">
+              Mentor & Settings
+            </h3>
+
+            <div className="grid gap-4">
+
+              <select
+                name="mentor"
+                value={formData.mentor}
                 onChange={handleChange}
-              />
-              Best Seller
-            </label>
-
-            <div className="flex flex-col sm:flex-row gap-4 pt-4">
-              <button
-                type="submit"
-                className="bg-indigo-600 hover:bg-indigo-500 px-5 py-2 rounded text-white"
+                className={inputClass}
               >
-                Update Course
-              </button>
+                <option value="">Select Mentor</option>
 
-              <button
-                type="button"
-                onClick={onClose}
-                className="bg-red-600 hover:bg-red-500 px-5 py-2 rounded text-white"
-              >
-                Cancel
-              </button>
+                {mentors.map((mentor) => (
+                  <option key={mentor._id} value={mentor._id}>
+                    {mentor.name}
+                  </option>
+                ))}
+              </select>
+
+              <label className="flex items-center gap-3 rounded-2xl border border-white/10 bg-slate-800/80 px-4 py-3 text-white">
+
+                <input
+                  type="checkbox"
+                  name="bestSeller"
+                  checked={formData.bestSeller}
+                  onChange={handleChange}
+                />
+
+                Best Seller Course
+
+              </label>
+
             </div>
-          </form>
-        </div>
+
+          </div>
+
+          {/* Action Buttons */}
+          <div className="flex flex-col sm:flex-row gap-3 pt-4">
+
+            <button
+              type="submit"
+              className="flex-1 py-3 rounded-2xl bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-semibold hover:scale-[1.02] transition"
+            >
+              Update Course
+            </button>
+
+            <button
+              type="button"
+              onClick={onClose}
+              className="flex-1 py-3 rounded-2xl bg-red-500/20 text-red-400 border border-red-500/20 hover:bg-red-500/30 transition"
+            >
+              Cancel
+            </button>
+
+          </div>
+
+        </form>
+
       </div>
+
     </div>
   );
-};;;
+};
 
 export default EditCourseModal;
