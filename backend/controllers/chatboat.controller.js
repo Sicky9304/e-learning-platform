@@ -26,31 +26,35 @@ exports.getChatRecommendation = catchAsyncErrors(async (req, res, next) => {
     });
   }
 
-  const courseList = courses.map((course) => `Title: ${course.title} Category: ${course.category} Level: ${course.level}
+  const courseList = courses
+    .map(
+      (course) => `Title: ${course.title} Category: ${course.category} Level: ${course.level}
   Price: ₹${course.price} Duration: ${course.duration} Language: ${course.language} Description: ${course.description}`
-  ).join('\n-----------------\n');
+    )
+    .join('\n-----------------\n');
 
   const prompt = `You are an AI assistant for an E-Learning Platform.
   Student Question:"${message}"
   Available Courses:${courseList}
   Rules:
-  1. Recommend ONLY courses from the provided list.
-  2. Do not create fake courses.
-  3. Reply in simple English.
-  4. If user asks:
-    - Frontend → Recommend Frontend courses
-    - Backend → Recommend Backend courses
-    - Full Stack → Recommend Full Stack courses
-    - Database → Recommend Database courses
-    - Design → Recommend Design courses
-    - Business → Recommend Business courses
-    - Marketing → Recommend Marketing courses
-  5. Mention:
-   - Course Name
-   - Category
-   - Level
-   - Price
-  6. Keep answer short and helpful.`;
+  - Only recommend courses from the available course list.
+  - Maximum 5 courses.
+  - Return each course in separate lines.
+  - Use this exact format:
+
+  Course 1
+  📚 Title: Course Name
+  💰 Price: ₹999
+  📊 Level: Beginner
+
+  Course 2
+  📚 Title: Course Name
+  💰 Price: ₹999
+  📊 Level: Intermediate
+
+  - Do not use markdown (**)
+  - Do not write long paragraphs.
+  - Keep response clean and mobile friendly.`;
 
   const completion = await groq.chat.completions.create({
     model: 'llama-3.1-8b-instant',

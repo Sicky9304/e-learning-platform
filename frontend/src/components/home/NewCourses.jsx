@@ -60,7 +60,7 @@ const NewCourses = () => {
 
           <Swiper
             modules={[Autoplay, Navigation]}
-            loop={true}
+            loop={courses?.length >= 5}
             navigation
             autoplay={{
               delay: 3500,
