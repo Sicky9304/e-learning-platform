@@ -3,6 +3,7 @@ import Footer from '../components/Footer/Footer';
 import Header from '../components/Header/Header';
 import { Toaster } from 'react-hot-toast';
 import ScrollToTopButton from '../components/home/ScrollToTopButton';
+import ChatBoat from './../components/chatboat/ChatBoat';
 
 const AppLayout = () => {
   const location = useLocation();
@@ -35,6 +36,7 @@ const AppLayout = () => {
       <Toaster position="top-right" />
 
       <ScrollToTopButton />
+      <ChatBoat/>
     </>
   );
 };

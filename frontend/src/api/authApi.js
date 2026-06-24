@@ -114,3 +114,12 @@ export const getCourseProgress = async (courseId) => {
 // Forgot Password
 // =========================
 export const forgotPassword = (email) => API.post('api/auth/forgot-password', { email });
+
+
+// =========================
+// ChatBoat Api
+// =========================
+export const askChatbot = async (message) => {
+  const { data } = await API.post('/chatbot/ask', { message });
+  return data.reply;
+};

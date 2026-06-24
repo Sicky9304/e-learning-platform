@@ -12,6 +12,7 @@ const mentorRoutes = require('./routes/mentor.routes');
 const dashboardRoutes = require('./routes/dashboard.routes');
 const contactRoutes = require("./routes/contact.routes");
 const progressRoutes = require('./routes/progress.routes');
+const chatbotRoutes = require('./routes/chatbot.routes');
 
 //auth Routes
 const authRoutes = require('./routes/auth.routes');
@@ -38,6 +39,7 @@ app.use('/api/auth', authRoutes);
 app.use('/api/orders', orderRoutes);
 app.use('/api/payment', paymentRoutes);
 app.use('/api/progress', progressRoutes);
+app.use('/api/chatbot', chatbotRoutes);
 
 // globelly Error handle middleware
 app.use(errorMiddleware);
