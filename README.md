@@ -2,6 +2,8 @@
 
 A premium MERN-stack Learning Management System (LMS) designed to offer an immersive, interactive, and responsive course learning experience. Features include user/admin dashboards, course progression tracking, a secure payment gateway integration, and a newly optimized **AI Academy Advisor** built with Groq.
 
+🔗 **Live Demo:** [https://e-learning-platform-delta-nine.vercel.app/](https://e-learning-platform-delta-nine.vercel.app/)
+
 ---
 
 ## 🌟 Key Features
