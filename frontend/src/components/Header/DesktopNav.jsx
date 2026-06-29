@@ -1,4 +1,6 @@
 import { Link, useNavigate } from "react-router-dom";
+import { ShoppingCart } from "lucide-react";
+import { useCart } from "../../context/CartContext";
 
 const navigation = [
   { name: "Home", to: "/" },
@@ -9,6 +11,7 @@ const navigation = [
 
 const DesktopNav = ({ user, handleLogout }) => {
   const navigate = useNavigate();
+  const { cartCount } = useCart();
 
   return (
     <>
@@ -38,6 +41,20 @@ const DesktopNav = ({ user, handleLogout }) => {
 
       {/* RIGHT SECTION */}
       <div className="hidden lg:flex items-center gap-4">
+        {/* Shopping Cart */}
+        <button
+          onClick={() => navigate("/checkout")}
+          className="relative p-2.5 rounded-xl border border-white/10 bg-white/5 text-white hover:bg-indigo-600 hover:border-transparent transition-all duration-300 flex items-center justify-center cursor-pointer group"
+          title="View Cart"
+        >
+          <ShoppingCart size={19} className="group-hover:scale-110 transition-transform" />
+          {cartCount > 0 && (
+            <span className="absolute -top-1.5 -right-1.5 w-5 h-5 rounded-full bg-indigo-500 text-white text-[10px] font-bold flex items-center justify-center animate-pulse">
+              {cartCount}
+            </span>
+          )}
+        </button>
+
         {user ? (
           <>
             <button

@@ -47,7 +47,14 @@ const Login = () => {
   const location = useLocation();
 
   // Auth Context
-  const { login } = useAuth();
+  const { user, login } = useAuth();
+
+  // Redirect if already logged in
+  useEffect(() => {
+    if (user) {
+      navigate(user.role === 'admin' ? '/dashboard' : '/', { replace: true });
+    }
+  }, [user, navigate]);
 
   // Show/Hide Password State
   const [showPassword, setShowPassword] = useState(false);
@@ -139,18 +146,18 @@ const Login = () => {
   };
 
   // ── Cursor glow ──
-    const { springX, springY } = useCursorGlow();
+  const { springX, springY } = useCursorGlow();
 
-    // ── Hue shift state for color-changing glow ──
-    const [hue, setHue] = useState(245); // start indigo
-    const hueRef = useRef(245);
-    useEffect(() => {
-      const interval = setInterval(() => {
-        hueRef.current = (hueRef.current + 0.6) % 360;
-        setHue(hueRef.current);
-      }, 30);
-      return () => clearInterval(interval);
-    }, []);
+  // ── Hue shift state for color-changing glow ──
+  const [hue, setHue] = useState(245); // start indigo
+  const hueRef = useRef(245);
+  useEffect(() => {
+    const interval = setInterval(() => {
+      hueRef.current = (hueRef.current + 0.6) % 360;
+      setHue(hueRef.current);
+    }, 30);
+    return () => clearInterval(interval);
+  }, []);
 
   return (
     <div className="relative z-[9999] min-h-screen bg-[#020817] flex items-center justify-center px-6 overflow-hidden">
@@ -281,6 +288,36 @@ const Login = () => {
               </div>
               <h1 className="text-4xl font-bold text-white">Welcome Back</h1>
               <p className="text-gray-400 mt-2 text-sm">Sign in to continue your journey</p>
+            </motion.div>
+
+            {/* ── Test Login Info ── */}
+            <motion.div
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.25 }}
+              className="mb-6 p-4 rounded-2xl bg-indigo-500/5 border border-indigo-500/20 text-xs"
+            >
+              <p className="text-indigo-400 font-semibold mb-2 text-center flex items-center justify-center gap-1.5">
+                <span>🔑</span> Quick Test Accounts (Click to auto-fill)
+              </p>
+              <div className="grid grid-cols-2 gap-2.5">
+                <button
+                  type="button"
+                  onClick={() => setFormData({ email: 'test@admin.com', password: 'test@admin' })}
+                  className="py-2.5 px-3 bg-[#020817]/60 hover:bg-indigo-600/10 border border-indigo-500/20 hover:border-indigo-500/40 rounded-xl text-white font-medium transition duration-200 text-left flex flex-col justify-between cursor-pointer group"
+                >
+                  <span className="text-[10px] text-indigo-400 font-bold tracking-wider group-hover:text-indigo-300">ADMIN ROLE</span>
+                  <span className="truncate mt-1 text-[11px] text-gray-300">test@admin.com</span>
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setFormData({ email: 'test@user.com', password: 'test@user' })}
+                  className="py-2.5 px-3 bg-[#020817]/60 hover:bg-emerald-600/10 border border-emerald-500/20 hover:border-emerald-500/40 rounded-xl text-white font-medium transition duration-200 text-left flex flex-col justify-between cursor-pointer group"
+                >
+                  <span className="text-[10px] text-emerald-400 font-bold tracking-wider group-hover:text-emerald-300">USER ROLE</span>
+                  <span className="truncate mt-1 text-[11px] text-gray-300">test@user.com</span>
+                </button>
+              </div>
             </motion.div>
 
             {/* ── Form ── */}

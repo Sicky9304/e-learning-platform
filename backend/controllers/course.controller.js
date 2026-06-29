@@ -20,7 +20,6 @@ exports.getCourses = catchAsyncErrors(async (req, res, next) => {
 });
 
 // GET SINGLE COURSE
-
 exports.getCourse = catchAsyncErrors(async (req, res, next) => {
   const course = await Course.findById(req.params.id)
     .populate('mentor')
@@ -33,8 +32,7 @@ exports.getCourse = catchAsyncErrors(async (req, res, next) => {
         },
       },
     });
-  // console.log(req.params.id);
-  // _id: ('6b6000000000000000000006', console.log(course));
+
   if (!course) {
     return next(new ErrorHandler('Course not found', 404));
   }

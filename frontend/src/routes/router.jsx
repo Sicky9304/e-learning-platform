@@ -130,11 +130,7 @@ export const router = createBrowserRouter([
 
       {
         path: 'checkout',
-        element: (
-          <ProtectedCourseRoute>
-            <Checkout />
-          </ProtectedCourseRoute>
-        ),
+        element: <Checkout />,
       },
 
       // =====================================================

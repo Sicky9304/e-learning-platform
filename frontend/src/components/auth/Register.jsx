@@ -5,6 +5,7 @@ import { User, Mail, Phone, Lock, Eye, EyeOff, UserPlus, Sparkles, CheckCircle2 
 
 import { registerUser } from '../../api/authApi';
 import { toast } from 'react-hot-toast';
+import { useAuth } from '../../context/AuthContext';
 
 // ─────────────────────────────────────────────────────────────────────────────
 // MOUSE CURSOR GLOW EFFECT — copy this block to Login.jsx to get the same effect
@@ -52,10 +53,18 @@ const getPasswordStrength = (password) => {
 
 const Register = () => {
   const navigate = useNavigate();
+  const { user } = useAuth();
   const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirm, setShowConfirm] = useState(false);
   const containerRef = useRef(null);
+
+  // Redirect if already logged in
+  useEffect(() => {
+    if (user) {
+      navigate(user.role === 'admin' ? '/dashboard' : '/', { replace: true });
+    }
+  }, [user, navigate]);
 
   const [formData, setFormData] = useState({
     name: '',

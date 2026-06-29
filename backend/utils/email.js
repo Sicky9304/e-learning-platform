@@ -1,11 +1,9 @@
 //@ts-nocheck
 const nodemailer = require('nodemailer');
-
 class Email {
   constructor() {
     this.from = process.env.EMAIL_FROM;
   }
-
   newTransport() {
     return nodemailer.createTransport({
       service: 'gmail',

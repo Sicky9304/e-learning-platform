@@ -121,5 +121,5 @@ export const forgotPassword = (email) => API.post('api/auth/forgot-password', { 
 // =========================
 export const askChatbot = async (message) => {
   const { data } = await API.post('api/chatbot/ask', { message });
-  return data.reply;
+  return data;
 };

@@ -14,11 +14,15 @@ import CourseRequirements from "../../components/courseDetails/CourseRequirement
 import CourseCurriculum from "../../components/courseDetails/CourseCurriculum";
 import CourseMentor from "../../components/courseDetails/CourseMentor";
 
+import { useAuth } from "../../context/AuthContext";
+import { useCart } from "../../context/CartContext";
 
 const CourseDetails = () => {
   const { id } = useParams();
 
   const navigate = useNavigate();
+  const { user } = useAuth();
+  const { addToCart, isInCart } = useCart();
 
   const [course, setCourse] = useState(null);
 
@@ -49,12 +53,31 @@ const CourseDetails = () => {
     fetchCourse();
   }, [id]);
 
+  const isAlreadyEnrolled = user?.enrolledCourses?.some(
+    (c) => (c._id || c) === course?._id
+  );
+
   const handleEnroll = () => {
+    if (!user) {
+      if (course) {
+        if (!isInCart(course._id)) {
+          addToCart(course);
+        }
+        navigate("/checkout");
+      }
+      return;
+    }
     navigate("/checkout", {
       state: {
         course,
       },
     });
+  };
+
+  const handleAddToCart = () => {
+    if (course) {
+      addToCart(course);
+    }
   };
 
   if (loading) return <CourseDetailsSkeleton />;
@@ -169,12 +192,42 @@ const CourseDetails = () => {
 
                   </div>
 
-                  <button
-                    onClick={handleEnroll}
-                    className="w-full bg-indigo-600 hover:bg-indigo-500 py-4 rounded-xl text-white font-semibold"
-                  >
-                    Enroll Now
-                  </button>
+                  {isAlreadyEnrolled ? (
+                    <button
+                      onClick={() => navigate(`/learn/${course._id}`)}
+                      className="w-full bg-emerald-600 hover:bg-emerald-500 py-4 rounded-xl text-white font-semibold flex items-center justify-center gap-2 transition duration-300 shadow-lg shadow-emerald-600/20"
+                    >
+                      <span>Go to Course</span>
+                      <span className="text-lg">📚</span>
+                    </button>
+                  ) : (
+                    <div className="space-y-3">
+                      <button
+                        onClick={handleEnroll}
+                        className="w-full bg-indigo-600 hover:bg-indigo-500 py-4 rounded-xl text-white font-semibold transition duration-300 shadow-lg shadow-indigo-600/20"
+                      >
+                        Enroll Now
+                      </button>
+
+                      {isInCart(course._id) ? (
+                        <button
+                          onClick={() => navigate("/checkout")}
+                          className="w-full bg-slate-800 hover:bg-slate-700 py-4 rounded-xl text-indigo-400 font-semibold border border-indigo-500/30 transition duration-300 flex items-center justify-center gap-2"
+                        >
+                          <span>Go to Cart</span>
+                          <span className="text-sm">🛒</span>
+                        </button>
+                      ) : (
+                        <button
+                          onClick={handleAddToCart}
+                          className="w-full bg-slate-850 hover:bg-slate-800 py-4 rounded-xl text-white font-semibold border border-slate-700 hover:border-slate-500 transition duration-300 flex items-center justify-center gap-2"
+                        >
+                          <span>Add to Cart</span>
+                          <span className="text-sm">🛒</span>
+                        </button>
+                      )}
+                    </div>
+                  )}
 
                   <div className="mt-8 space-y-4 text-gray-300">
 

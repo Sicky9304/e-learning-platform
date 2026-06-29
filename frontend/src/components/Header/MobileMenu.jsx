@@ -2,7 +2,8 @@ import { Dialog, DialogPanel } from "@headlessui/react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import { Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import { FaBookOpen, FaHome, FaInfoCircle, FaPhone } from "react-icons/fa";
+import { FaBookOpen, FaHome, FaInfoCircle, FaPhone, FaShoppingCart } from "react-icons/fa";
+import { useCart } from "../../context/CartContext";
 
 const navigation = [
   {
@@ -35,6 +36,7 @@ const MobileMenu = ({
   user,
   handleLogout,
 }) => {
+  const { cartCount } = useCart();
   return (
     <Dialog
       open={mobileMenuOpen}
@@ -124,6 +126,33 @@ const MobileMenu = ({
                 </Link>
               </motion.div>
             ))}
+
+            {/* Shopping Cart Link */}
+            <motion.div
+              initial={{ opacity: 0, x: 30 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: navigation.length * 0.08 }}
+            >
+              <Link
+                to="/checkout"
+                onClick={() => setMobileMenuOpen(false)}
+                className="group flex items-center justify-between rounded-2xl px-5 py-4 bg-white/[0.03] border border-white/5 hover:border-indigo-500/30 hover:bg-indigo-500/10 transition-all duration-300"
+              >
+                <div className="flex items-center gap-4">
+                  <span className="text-indigo-400 text-lg">
+                    <FaShoppingCart />
+                  </span>
+                  <span className="text-white font-medium">
+                    Cart / Checkout
+                  </span>
+                </div>
+                {cartCount > 0 && (
+                  <span className="bg-indigo-500 text-white text-xs px-2.5 py-0.5 rounded-full font-bold animate-pulse">
+                    {cartCount}
+                  </span>
+                )}
+              </Link>
+            </motion.div>
 
             {user?.role === "admin" && (
               <Link
