@@ -275,9 +275,9 @@ const Footer = () => {
               © {new Date().getFullYear()} E-Learn Platform. All Rights Reserved.
             </p>
 
-            <p className="text-gray-500 text-center">
+            {/* <p className="text-gray-500 text-center">
               Built with ❤️ by Sicky Kumar
-            </p>
+            </p> */}
 
           </div>
 
